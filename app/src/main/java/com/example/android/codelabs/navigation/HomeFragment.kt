@@ -55,9 +55,11 @@ class HomeFragment : Fragment() {
         binding?.navigateDestinationButton?.setOnClickListener {
             findNavController().navigate(R.id.flow_step_one_dest, null, options)
         }
-        binding?.navigateActionButton?.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.next_action, null)
-        )
+        binding?.navigateActionButton?.setOnClickListener {
+            val flowStepNumberArg = 1
+            val action = HomeFragmentDirections.nextAction(flowStepNumberArg)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {
