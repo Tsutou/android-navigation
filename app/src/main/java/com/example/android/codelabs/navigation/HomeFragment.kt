@@ -19,6 +19,7 @@ package com.example.android.codelabs.navigation
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.example.android.codelabs.navigation.databinding.HomeFragmentBinding
@@ -37,7 +38,7 @@ class HomeFragment : Fragment() {
     ): View {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
-        return binding!!.root
+        return requireNotNull(binding).root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,26 +55,9 @@ class HomeFragment : Fragment() {
         binding?.navigateDestinationButton?.setOnClickListener {
             findNavController().navigate(R.id.flow_step_one_dest, null, options)
         }
-
-        //TODO STEP 6 - Set NavOptions
-//        val options = navOptions {
-//            anim {
-//                enter = R.anim.slide_in_right
-//                exit = R.anim.slide_out_left
-//                popEnter = R.anim.slide_in_left
-//                popExit = R.anim.slide_out_right
-//            }
-//        }
-//        view.findViewById<Button>(R.id.navigate_destination_button)?.setOnClickListener {
-//            findNavController().navigate(R.id.flow_step_one_dest, null, options)
-//        }
-        //TODO END STEP 6
-
-        //TODO STEP 7.2 - Update the OnClickListener to navigate using an action
-//        view.findViewById<Button>(R.id.navigate_action_button)?.setOnClickListener(
-//                Navigation.createNavigateOnClickListener(R.id.next_action, null)
-//        )
-        //TODO END STEP 7.2
+        binding?.navigateActionButton?.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.next_action, null)
+        )
     }
 
     override fun onDestroyView() {
